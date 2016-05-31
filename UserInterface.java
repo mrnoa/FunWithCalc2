@@ -111,38 +111,8 @@ public class UserInterface
     public void actionPerformed(ActionEvent event)
     {
         String command = event.getActionCommand();
-
-        if(command.equals("0") ||
-           command.equals("1") ||
-           command.equals("2") ||
-           command.equals("3") ||
-           command.equals("4") ||
-           command.equals("5") ||
-           command.equals("6") ||
-           command.equals("7") ||
-           command.equals("8") ||
-           command.equals("9")) {
-            int number = Integer.parseInt(command);
-            calc.numberPressed(number);
-        }
-        else if(command.equals("+")) {
-            calc.plus();
-        }
-        else if(command.equals("-")) {
-            calc.minus();
-        }
-        else if(command.equals("*")) {
-            calc.multiply();
-        }
-        else if(command.equals("=")) {
-            calc.equals();
-        }
-        else if(command.equals("C")) {
-            calc.clear();
-        }
-        else if(command.equals("?")) {
-            showInfo();
-        }
+        if(command.equals("="))calc.calculateResult();
+        else calc.addToString(command);
         // else unknown command.
 
         redisplay();

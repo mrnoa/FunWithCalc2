@@ -22,26 +22,9 @@ public class HexUserInterface extends UserInterface {
 
 	public void actionPerformed(ActionEvent event) {
 		String command = event.getActionCommand();
-
-		if (command.equals("0") || command.equals("1") || command.equals("2") || command.equals("3")
-				|| command.equals("4") || command.equals("5") || command.equals("6") || command.equals("7")
-				|| command.equals("8") || command.equals("9") || command.equals("A") || command.equals("B")
-				|| command.equals("C") || command.equals("D") || command.equals("E") || command.equals("F")) {
-			int number = Integer.parseInt(command, 16);
-			calc.numberPressed(number);
-		} else if (command.equals("+")) {
-			calc.plus();
-		} else if (command.equals("-")) {
-			calc.minus();
-		} else if (command.equals("*")) {
-			calc.multiply();
-		} else if (command.equals("=")) {
-			calc.equals();
-		} else if (command.equals("CLR")) {
-			calc.clear();
-		} else if (command.equals("?")) {
-			showInfo();
-		} else if (command.equals("HIDE")) {
+		if(command.equals("=")) calc.calculateResult();
+		
+		else if (command.equals("HIDE")) {
 			if (hexCheckbox.isSelected())
 			{
 				((HexCalcEngine)calc).setBase(10);
@@ -54,7 +37,10 @@ public class HexUserInterface extends UserInterface {
 			buttonPanel2.setVisible(!hexCheckbox.isSelected());
 			
 			//redisplay();
+			
 		} 
+		else if (command.equals("CLR")) calc.clear();
+		else calc.addToString(command);
 		// else unknown command.
 
 		redisplay();
@@ -63,9 +49,6 @@ public class HexUserInterface extends UserInterface {
 	
     protected void redisplay()
     {
-    	if(((HexCalcEngine)calc).getBase() == 16)
-    		display.setText("" + Integer.toHexString(calc.getDisplayValue()).toUpperCase());
-    	else
     		display.setText("" + calc.getDisplayValue());
     } 
 
@@ -83,7 +66,7 @@ public class HexUserInterface extends UserInterface {
 		
 		JPanel motherOfAllPanels = new JPanel(new GridLayout(2, 1));
 		
-		JPanel buttonPanel = new JPanel(new GridLayout(5, 4));
+		JPanel buttonPanel = new JPanel(new GridLayout(6, 4));
 
 		addButton(buttonPanel, "7");
 		addButton(buttonPanel, "8");
@@ -107,15 +90,10 @@ public class HexUserInterface extends UserInterface {
 		addButton(buttonPanel, "-");
 
 		addButton(buttonPanel, "=");
-
-//		addButton(buttonPanel, "A");
-//		addButton(buttonPanel, "B");
-//		addButton(buttonPanel, "C");
-//		buttonPanel.add(new JLabel(" "));
-//
-//		addButton(buttonPanel, "D");
-//		addButton(buttonPanel, "E");
-//		addButton(buttonPanel, "F");
+		
+		addButton(buttonPanel, "/");
+		addButton(buttonPanel, "(");
+		addButton(buttonPanel, ")");
 		
 
 		buttonPanel2 = new JPanel(new GridLayout(2, 4));
